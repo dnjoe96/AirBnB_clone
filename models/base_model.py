@@ -42,6 +42,7 @@ class BaseModel:
         with the current datetime."""
 
         self.update_at = datetime.now().isoformat()
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary representation of an instance."""
