@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 """Module for FileStorage class."""
 
+import json
 
 class FileStorage:
+    self.__file_path = "file.json"
+    self.__objects = {}
 
     def __init__(self):
-        self.__file_path = "file.json"
-        self.__objects = {}
+        pass
 
     def all(self):
         """Returns __objects dictionary."""
@@ -15,25 +17,28 @@ class FileStorage:
     def new(self, obj):
         """Sets new obj in __objects dictionary."""
         dkey = "{}.{}".format(type(obj).__name__, obj.id)
-	FileStorage.__objects[dkey] = obj.to_dict()
+	    FileStorage.__objects[dkey] = obj.to_dict()
+
+    def del_obj(self, object_id):
+		FileStorage.__objects.pop(object_id)
 
     def save(self):
         """Serialzes __objects to JSON file."""
-        serial_objs = json.dumps(FileStorage.__objects)
+        if len(FileStorage.__objects) != 0:
+			serial_objs = json.dumps(FileStorage.__objects)
 
-        if os.path.isfile(FileStorage.__file_path):
-            if os.path.getsize(FileStorage.__file_path) == 0:
-                obj_to_save = serial_objs
-
-            else:
-                obj_to_save = '\n' + serial_objs
-
-        else:
-		obj_to_save = serial_objs
-
-        with open(FileStorage.__file_path, 'a') as f:
-	    f.write(obj_to_save)
+			with open(FileStorage.__file_path, 'w') as f:
+				f.write(serial_objs)
 
     def reload(self):
         """Deserializes JSON file into __objects."""
-        pass
+        FileStorage.__objects.clear()
+		
+		if not os.path.isfile(FileStorage.__file_path):
+			return
+
+		if os.path.getsize(FileStorage.__file_path) == 0:
+			return
+
+		with open(FileStorage.__file_path, "r") as f:
+			FileStorage.__objects = json.loads(f.read())
