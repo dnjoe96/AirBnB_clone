@@ -19,9 +19,6 @@ class FileStorage:
         dkey = "{}.{}".format(type(obj).__name__, obj.id)
         FileStorage.__objects[dkey] = obj.to_dict()
 
-    def del_obj(self, object_id):
-        FileStorage.__objects.pop(object_id)
-
     def save(self):
         """Serialzes __objects to JSON file."""
         if len(FileStorage.__objects) != 0:

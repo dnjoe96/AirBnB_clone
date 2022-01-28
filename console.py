@@ -17,8 +17,6 @@ def check_id(object_id):
 	"""concatenates the className and id, to check if the key exists in 
     __object/file store
 	"""
-	# print(className + id)
-	# print(list(storage.all().keys()))
 	if object_id in list(storage.all().keys()):
 		return True
 	else:
@@ -33,14 +31,13 @@ class HBNBCommand(cmd.Cmd):
 	""" Class to handle project commandline interpreter
 	"""
 	
-	# intro = 'Welcome to the turtle shell.   Type help or ? to list commands.\n'
 	prompt = '(hbnb) '
 	file = None
 
 	# def do_help(self, arg):
 	#   print("This is the help page")
 
-	def do_create(self, arg):
+    def do_create(self, arg):
 		if len(arg) == 0:
 			print("** class name missing **")
 			return
@@ -74,14 +71,16 @@ class HBNBCommand(cmd.Cmd):
 		else:
 			print("** no instance found **")
 
-	def do_destroy(self, arg):
-		"""Deletes an instance based on the class name and id (save the change 
-        into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234
+
+    def do_destroy(self, arg):
+		"""Deletes an instance based on the class name and id i
+        (save the change into the JSON file). 
+        Ex: $ destroy BaseModel 1234-1234-1234
 		"""
 		if len(arg) == 0:
 			print("** class name missing **")
 			return
-		
+
 		arg = args(arg)
 
 		if arg[0] not in ['BaseModel']:
@@ -90,14 +89,13 @@ class HBNBCommand(cmd.Cmd):
 		if len(arg) < 2:
 			print("** instance id missing **")
 			return
-		
+
 		obj_id = arg[0] + '.' + arg[1]
 		if check_id(obj_id):
-			storage.del_obj(obj_id)
+			storage._FileStorage__objects.pop(obj_id)
 			# i think it may be a good idea to reload, but we'll see about that.
 		else:
 			print("** no instance found **")
-
 
 	def do_all(self, arg):
 		"""Prints all string representation of all instances based or not on 
@@ -123,7 +121,38 @@ class HBNBCommand(cmd.Cmd):
 		
 
 	def do_update(self, arg):
-		pass
+		"""Updates an instance based on the class name and id by adding or 
+        updating attribute (save the change into the JSON file). 
+        Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
+		"""
+		if len(arg) == 0:
+			print("** class name missing **")
+			return
+		
+		arg = args(arg)
+
+		if arg[0] not in ['BaseModel']:
+			print("** class doesn't exist **")
+			return
+		if len(arg) < 2:
+			print("** instance id missing **")
+			return
+
+		obj_id = arg[0] + '.' + arg[1]
+		if check_id(obj_id):
+			dict_obj = get_dict(obj_id)
+		else:
+			print("** no instance found **")
+		
+		if len(arg) == 4:
+			
+			obj = BaseModel(dict_obj)
+			
+			storage._FileStorage__objects[obj_id][arg[2]] = arg[3]
+			obj.save()
+		else:
+			print("** Not enough paramters")
 	
 	def do_EOF(self, line):
 		return True
