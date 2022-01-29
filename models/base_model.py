@@ -3,7 +3,7 @@
 Contains the Base class for the AirBnB clone console.
 """
 
-from models import storage
+from . import storage
 import uuid
 from datetime import datetime
 
@@ -27,16 +27,15 @@ class BaseModel:
         else:
             self.id = kwargs['id']
             self.created_at = datetime.strptime(kwargs
-                            ['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+                                                ['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
             self.update_at = datetime.strptime(kwargs
-                    ['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+                                               ['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
 
-    
     def __str__(self):
         """Returns a string representation of the instance"""
 
         return "[{}] ({}) {}".format(__class__.__name__,
-                self.id, self.__dict__)
+                                     self.id, self.__dict__)
 
     def save(self):
         """Updates the updated_at attribute

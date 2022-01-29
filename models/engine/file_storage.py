@@ -3,7 +3,9 @@
 
 import json, os
 
+
 class FileStorage:
+    """ The file storage handling class"""
     __file_path = "file.json"
     __objects = {}
 
