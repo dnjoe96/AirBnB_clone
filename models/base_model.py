@@ -26,10 +26,10 @@ class BaseModel:
 
         else:
             self.id = kwargs['id']
-            self.created_at = datetime.strptime(kwargs
-                                                ['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
-            self.update_at = datetime.strptime(kwargs
-                                               ['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+            self.created_at = \
+                datetime.strptime(kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+            self.update_at = \
+                datetime.strptime(kwargs['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
 
     def __str__(self):
         """Returns a string representation of the instance"""
