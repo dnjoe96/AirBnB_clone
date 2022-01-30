@@ -12,7 +12,6 @@ from models import storage
 from datetime import datetime
 
 
-
 class TestBaseModel(unittest.TestCase):
 
     """Tests for BaseModel class."""
@@ -74,7 +73,7 @@ class TestBaseModel(unittest.TestCase):
         dic = obj.to_dict()
 
         self.assertEqual(dic["id"], obj.id)
-        self.assertEqual(dic["created_at"],obj.created_at.isoformat())
+        self.assertEqual(dic["created_at"], obj.created_at.isoformat())
         self.assertEqual(dic["updated"], obj.updated_at.isoformat())
         self.assertEqual(dic["__class__"], type(obj).__name__)
 
@@ -89,8 +88,8 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         """Test str() returns a string"""
         obj = BaseModel()
-        string = "[{}] ({}) {}".format(__class__.__name__,
-                obj.id, obj.__dict__)
+        string = \
+            "[{}] ({}) {}".format(__class__.__name__, obj.id, obj.__dict__)
         self.assertEqual(string, str(obj))
 
     def test_save(self):
@@ -106,6 +105,7 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(previous_created_at, current_created_at)
         self.assertNotEqual(previous_updated_at, current_updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()
