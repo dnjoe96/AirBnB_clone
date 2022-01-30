@@ -18,7 +18,6 @@ class BaseModel:
             - **kwargs: dict of key-values arguments
         """
 
-        print(len(kwargs))
         if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
