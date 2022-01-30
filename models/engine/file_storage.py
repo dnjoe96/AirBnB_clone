@@ -4,7 +4,6 @@
 import json
 import os
 
-
 class FileStorage:
     """ The file storage handling class"""
     __file_path = "file.json"
@@ -15,17 +14,26 @@ class FileStorage:
 
     def all(self):
         """Returns __objects dictionary."""
+        # dic = {}
+        # for key, value in FileStorage.__objects.items():
+        #       dic[key] = value
+        # return dic
         return FileStorage.__objects
 
     def new(self, obj):
         """Sets new obj in __objects dictionary."""
         dkey = "{}.{}".format(type(obj).__name__, obj.id)
+        # FileStorage.__objects[dkey] = obj
         FileStorage.__objects[dkey] = obj.to_dict()
 
     def save(self):
-        """Serialzes __objects to JSON file."""
+        """Serializes __objects to JSON file."""
+        # objs = {}
+        # for key, value in FileStorage.__objects.items():
+        #     objs[key] = value.to_dict()
+        objs = FileStorage.__objects
         if len(FileStorage.__objects) != 0:
-            serial_objs = json.dumps(FileStorage.__objects)
+            serial_objs = json.dumps(objs)
 
             with open(FileStorage.__file_path, 'w') as f:
                 f.write(serial_objs)
@@ -42,3 +50,6 @@ class FileStorage:
 
         with open(FileStorage.__file_path, "r") as f:
             FileStorage.__objects = json.loads(f.read())
+
+        # for key, value in objs.items():
+        #     FileStorage.__objects[key] = globals()[value['__class__']](**value)

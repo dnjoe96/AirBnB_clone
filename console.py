@@ -21,7 +21,7 @@ def initialize_class(class_name, dic=None):
     using the vars() function
     """
     if dic:
-        return globals()[class_name](dic)
+        return globals()[class_name](**dic)
     else:
         return globals()[class_name]()
 
@@ -78,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         obj = initialize_class(arg[0])
-        storage.new(obj)
+        # storage.new(obj)
         print(obj.id)
 
     def do_show(self, arg):
@@ -100,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
 
         obj_id = arg[0] + '.' + arg[1]
         if check_id(obj_id):
-            print(storage.all()[obj_id])
+            print("[{}] ({}) {}".format(arg[0], arg[1], storage.all()[obj_id]))
         else:
             print("** no instance found **")
 
@@ -148,8 +148,8 @@ class HBNBCommand(cmd.Cmd):
         for key, value in storage.all().items():
             # key sample: BaseModel.b83e06b3-b296-42df-af3d-a880a26421f1
             if key.split('.')[0] == arg[0]:
-                all.append(value)
-
+                one = "[{}] ({}) {}".format(arg[0], key.split('.')[1], value)
+                all.append(one)
         print(all)
 
     def do_update(self, arg):
@@ -178,9 +178,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
         if len(arg) == 4:
-
             obj = initialize_class(arg[0], dict_obj)
-
             storage._FileStorage__objects[obj_id][arg[2]] = arg[3]
             obj.save()
         else:
