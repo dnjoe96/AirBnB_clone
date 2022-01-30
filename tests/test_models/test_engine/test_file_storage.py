@@ -30,18 +30,34 @@ class TestFileStorage(unittest.TestCase):
         pass
 
     def test_class_attributes(self):
+        """Test attributes of FileStorage"""
         self.resetStorage()
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
     def test_private_class_attribute(self):
+        """Test private attributes of FileStorage"""
         self.assertFalse(hasattr(FileStorage(), "__file_path"))
         self.assertFalse(hasattr(FileStorage(), "__objects"))
 
     def test_all_method(self):
         """Test all()"""
         storage = FileStorage()
-        new_dict = storage.all()
-        self.assertEqual(type(new_dict), dict)
-        self.assertIs(new_dict, storage._FileStorage__objects)
+        self.assertEqual(type(storage.all()), dict)
+        obj1 = BaseModel()
+        obj2 = BaseModel()
+        obj3 = BaseModel()
+        storage.new(obj1)
+        storage.new(obj2)
+        storage.new(obj3)
+
+        dictionary = storage.all()
+        self.assertEqual(type(dictionary), dict)
+        self.assertFalse(dictionary == {})
+        self.assertTrue("BaseModel.{}".format(obj1.id) in dictionary)
+        self.assertTrue("BaseModel.{}".format(obj2.id) in dictionary)
+        self.assertTrue("BaseModel.{}".format(obj3.id) in dictionary)
+
+    def test_new_method(self):
+        
