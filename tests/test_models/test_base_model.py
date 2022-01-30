@@ -95,11 +95,16 @@ class TestBaseModel(unittest.TestCase):
         """Test str() returns a string"""
         obj = BaseModel()
 <<<<<<< HEAD
+<<<<<<< HEAD
         string = "[BaseModel] ({}) {}".format(obj.id, obj.__dict__)
 =======
         string = \
             "[{}] ({}) {}".format(__class__.__name__, obj.id, obj.__dict__)
 >>>>>>> eb8fd0adc27e391d6bb7e37aac44cc8e58187048
+=======
+        string = \
+            "[{}] ({}) {}".format(__class__.__name__, obj.id, obj.__dict__)
+>>>>>>> 90c2c277fff25fd99b0270d0d813bd21c0474653
         self.assertEqual(string, str(obj))
 
 
@@ -116,6 +121,7 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(old_created_at, new_created_at)
         self.assertNotEqual(new_created_at, new_updated_at)
+
 
 
 if __name__ == '__main__':
