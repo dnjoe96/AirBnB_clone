@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""Script for the project console"""
 import cmd
 
 from models import storage
