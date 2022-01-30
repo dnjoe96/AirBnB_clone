@@ -54,3 +54,6 @@ For the backend interface of this application, you can interact with the applica
 - load objects from the client side by using your own RESTful API
 ---
 
+### Authors
+- [Rihana Ali Saeid](https://github.com/avocadoclouds)
+- [Joseph Emmanuel](https://github.com/dnjoe96)
