@@ -17,7 +17,8 @@ from models.user import User
 
 
 def initialize_class(class_name, dic=None):
-    """This function is created for Dynamic initialization of model classes using the vars() function
+    """This function is created for Dynamic initialization of model classes
+    using the vars() function
     """
     if dic:
         return globals()[class_name](dic)
