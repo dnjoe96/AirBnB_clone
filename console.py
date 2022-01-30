@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """Script for the project console"""
 import cmd
+import sys
 
-from models import storage
+from models import storage, all_models
 # import readline
 from models.base_model import BaseModel
 
-
-# from models.engine.file_storage import FileStorage
-
-
 # histfile = os.path.join(os.path.expanduser("~"), ".python_history")
+
 
 def args(arg):
     """
@@ -43,8 +41,11 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     file = None
 
-    # def do_help(self, arg):
-    #   print("This is the help page")
+    def __init__(self):
+        """Initialize class to set parameter for non-intereactive
+        operations
+        """
+        cmd.Cmd.__init__(self, stdin=sys.stdin)
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file)
@@ -53,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return
-        if arg not in ['BaseModel']:
+        if arg not in all_models:
             print("** class doesn't exist **")
             return
         obj = BaseModel()
@@ -167,10 +168,13 @@ class HBNBCommand(cmd.Cmd):
         """EOF"""
         return True
 
+    def emptyline(self):
+        pass
+
     def do_quit(self, arg):
         """ EXit the console and commit all changes"""
         storage.save()
-        exit()
+        return True
 
 
 if __name__ == '__main__':
