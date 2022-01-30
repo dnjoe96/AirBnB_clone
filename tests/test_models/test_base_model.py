@@ -7,7 +7,9 @@ import os
 import uuid
 import time
 import uuid
+import models
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from models import storage
 from datetime import datetime
 
@@ -50,11 +52,19 @@ class TestBaseModel(unittest.TestCase):
     def test_id_is_string(self):
         """Test id is string"""
         obj = BaseModel()
-        self.asserTrue(type(obj.id), str)
+        self.assertTrue(type(obj.id), str)
 
     def test_init_no_args(self):
         """Test init function has no args"""
         pass
+
+    def test_attriutes(self):
+        obj = BaseModel()
+        obj.name = "Name"
+        obj.number = 11
+
+        self.assertEqual(obj.name, "Name")
+        self.assertEqual(obj.number, 11)
 
     def test_date_time(self):
         """Test created at and updated are datetime"""
@@ -65,21 +75,11 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict(self):
         """Test the method to_dict()"""
         obj = BaseModel()
-        obj.name = "Name"
-        obj.number = 11
-
-        self.assertEqual(obj.name, "Name")
-        self.assertEqual(obj.number, 11)
-
         dic = obj.to_dict()
 
-        self.assertEqual(dic["id"], obj.id)
-        self.assertEqual(dic["created_at"],obj.created_at.isoformat())
-        self.assertEqual(dic["updated"], obj.updated_at.isoformat())
+        self.assertEqual(dic["created_at"], obj.created_at)
+        self.assertEqual(dic["updated_at"], obj.updated_at)
         self.assertEqual(dic["__class__"], type(obj).__name__)
-
-    def test_no_args_for_to_dict(self):
-        pass
 
     def test_to_dict_returns_dict(self):
         """Test to_dict() returns a dictionary"""
@@ -89,23 +89,23 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         """Test str() returns a string"""
         obj = BaseModel()
-        string = "[{}] ({}) {}".format(__class__.__name__,
-                obj.id, obj.__dict__)
+        string = "[BaseModel] ({}) {}".format(obj.id, obj.__dict__)
         self.assertEqual(string, str(obj))
+
 
     def test_save(self):
         """Test save() that updates created/updated at
         and calles strorage"""
         obj = BaseModel()
-        previous_updated_at = obj.updated_at
-        previous_created_at = obj.created_at
+        old_updated_at = obj.updated_at
+        old_created_at = obj.created_at
 
         obj.save()
-        current_created_at = obj.created_at
-        current_updated_at = obj.updated_at
+        new_created_at = obj.created_at
+        new_updated_at = obj.updated_at
 
-        self.assertEqual(previous_created_at, current_created_at)
-        self.assertNotEqual(previous_updated_at, current_updated_at)
+        self.assertEqual(old_created_at, new_created_at)
+        self.assertNotEqual(new_created_at, new_updated_at)
 
 if __name__ == '__main__':
     unittest.main()
