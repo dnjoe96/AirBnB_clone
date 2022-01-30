@@ -18,7 +18,6 @@ class BaseModel:
             - **kwargs: dict of key-values arguments
         """
 
-        print(len(kwargs))
         if len(kwargs) == 0:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -41,7 +40,7 @@ class BaseModel:
         """Updates the updated_at attribute
         with the current datetime."""
 
-        self.update_at = datetime.now().isoformat()
+        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):

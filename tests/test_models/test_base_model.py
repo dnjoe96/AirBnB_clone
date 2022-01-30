@@ -14,7 +14,6 @@ from models import storage
 from datetime import datetime
 
 
-
 class TestBaseModel(unittest.TestCase):
 
     """Tests for BaseModel class."""
@@ -77,8 +76,14 @@ class TestBaseModel(unittest.TestCase):
         obj = BaseModel()
         dic = obj.to_dict()
 
+<<<<<<< HEAD
         self.assertEqual(dic["created_at"], obj.created_at)
         self.assertEqual(dic["updated_at"], obj.updated_at)
+=======
+        self.assertEqual(dic["id"], obj.id)
+        self.assertEqual(dic["created_at"], obj.created_at.isoformat())
+        self.assertEqual(dic["updated"], obj.updated_at.isoformat())
+>>>>>>> eb8fd0adc27e391d6bb7e37aac44cc8e58187048
         self.assertEqual(dic["__class__"], type(obj).__name__)
 
     def test_to_dict_returns_dict(self):
@@ -89,7 +94,12 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         """Test str() returns a string"""
         obj = BaseModel()
+<<<<<<< HEAD
         string = "[BaseModel] ({}) {}".format(obj.id, obj.__dict__)
+=======
+        string = \
+            "[{}] ({}) {}".format(__class__.__name__, obj.id, obj.__dict__)
+>>>>>>> eb8fd0adc27e391d6bb7e37aac44cc8e58187048
         self.assertEqual(string, str(obj))
 
 
@@ -106,6 +116,7 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(old_created_at, new_created_at)
         self.assertNotEqual(new_created_at, new_updated_at)
+
 
 if __name__ == '__main__':
     unittest.main()

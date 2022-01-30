@@ -10,6 +10,7 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models import storage
 
+
 class TestFileStorage(unittest.TestCase):
     """Tests for FileStorage class"""
 
