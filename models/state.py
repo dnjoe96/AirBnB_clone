@@ -5,5 +5,5 @@ from .base_model import BaseModel
 
 
 class State(BaseModel):
-
+    """ class for State Model"""
     name = ""
