@@ -6,8 +6,23 @@ import sys
 from models import storage, all_models
 # import readline
 from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 # histfile = os.path.join(os.path.expanduser("~"), ".python_history")
+
+
+def initialize_class(class_name, dic=None):
+    """This function is created for Dynamic initialization of model classes using the vars() function
+    """
+    if dic:
+        return globals()[class_name](dic)
+    else:
+        return globals()[class_name]()
 
 
 def args(arg):
@@ -61,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        obj = BaseModel()
+        obj = initialize_class(arg[0])
         storage.new(obj)
         print(obj.id)
 
@@ -130,7 +145,9 @@ class HBNBCommand(cmd.Cmd):
         all = []
 
         for key, value in storage.all().items():
-            all.append(value)
+            # key sample: BaseModel.b83e06b3-b296-42df-af3d-a880a26421f1
+            if key.split('.')[0] == arg[0]:
+                all.append(value)
 
         print(all)
 
@@ -161,7 +178,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(arg) == 4:
 
-            obj = BaseModel(dict_obj)
+            obj = initialize_class(arg[0], dict_obj)
 
             storage._FileStorage__objects[obj_id][arg[2]] = arg[3]
             obj.save()
