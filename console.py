@@ -54,9 +54,13 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return
-        if arg not in all_models:
+
+        arg = args(arg)
+
+        if arg[0] not in all_models:
             print("** class doesn't exist **")
             return
+
         obj = BaseModel()
         storage.new(obj)
         print(obj.id)
@@ -71,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
 
         arg = args(arg)
 
-        if arg[0] not in ['BaseModel']:
+        if arg[0] not in all_models:
             print("** class doesn't exist **")
             return
         if len(arg) < 2:
@@ -95,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
 
         arg = args(arg)
 
-        if arg[0] not in ['BaseModel']:
+        if arg[0] not in all_models:
             print("** class doesn't exist **")
             return
         if len(arg) < 2:
@@ -119,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
 
         arg = args(arg)
 
-        if arg[0] not in ['BaseModel']:
+        if arg[0] not in all_models:
             print("** class doesn't exist **")
             return
 
@@ -142,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
 
         arg = args(arg)
 
-        if arg[0] not in ['BaseModel']:
+        if arg[0] not in all_models:
             print("** class doesn't exist **")
             return
         if len(arg) < 2:
