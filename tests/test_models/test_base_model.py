@@ -92,7 +92,6 @@ class TestBaseModel(unittest.TestCase):
         string = "[BaseModel] ({}) {}".format(obj.id, obj.__dict__)
         self.assertEqual(string, str(obj))
 
-
     def test_save(self):
         """Test save() that updates created/updated at
         and calles strorage"""
@@ -106,7 +105,6 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(old_created_at, new_created_at)
         self.assertNotEqual(new_created_at, new_updated_at)
-
 
 
 if __name__ == '__main__':
