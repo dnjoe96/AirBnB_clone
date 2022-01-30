@@ -7,11 +7,10 @@ import os
 import uuid
 import time
 import uuid
-from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
-from models import storage
+
 
 
 class TestBaseModel(unittest.TestCase):
@@ -27,9 +26,10 @@ class TestBaseModel(unittest.TestCase):
         self.resetStorage()
         pass
 
-     def resetStorage(self):
+    def resetStorage(self):
         """Resets FileStorage data."""
         FileStorage._FileStorage__objects = {}
+
         if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
@@ -97,8 +97,8 @@ class TestBaseModel(unittest.TestCase):
         """Test save() that updates created/updated at
         and calles strorage"""
         obj = BaseModel()
+        previous_updated_at = obj.updated_at
         previous_created_at = obj.created_at
-	previous_updated_at = obj.updated_at
 
         obj.save()
         current_created_at = obj.created_at
