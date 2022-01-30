@@ -76,14 +76,8 @@ class TestBaseModel(unittest.TestCase):
         obj = BaseModel()
         dic = obj.to_dict()
 
-<<<<<<< HEAD
         self.assertEqual(dic["created_at"], obj.created_at)
         self.assertEqual(dic["updated_at"], obj.updated_at)
-=======
-        self.assertEqual(dic["id"], obj.id)
-        self.assertEqual(dic["created_at"], obj.created_at.isoformat())
-        self.assertEqual(dic["updated"], obj.updated_at.isoformat())
->>>>>>> eb8fd0adc27e391d6bb7e37aac44cc8e58187048
         self.assertEqual(dic["__class__"], type(obj).__name__)
 
     def test_to_dict_returns_dict(self):
@@ -94,17 +88,8 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         """Test str() returns a string"""
         obj = BaseModel()
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         string = "[BaseModel] ({}) {}".format(obj.id, obj.__dict__)
-=======
-        string = \
-            "[{}] ({}) {}".format(__class__.__name__, obj.id, obj.__dict__)
->>>>>>> eb8fd0adc27e391d6bb7e37aac44cc8e58187048
-=======
-        string = \
-            "[{}] ({}) {}".format(__class__.__name__, obj.id, obj.__dict__)
->>>>>>> 90c2c277fff25fd99b0270d0d813bd21c0474653
         self.assertEqual(string, str(obj))
 
 
