@@ -53,5 +53,5 @@ class FileStorage:
             FileStorage.__objects = json.loads(f.read())
 
         # for key, value in objs.items():
-        #     FileStorage.__objects[key] =
-        #     globals()[value['__class__']](**value)
+            # FileStorage.__objects[key] = \
+                # globals()[value['__class__']](**value)
