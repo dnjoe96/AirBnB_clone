@@ -60,4 +60,9 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue("BaseModel.{}".format(obj3.id) in dictionary)
 
     def test_new_method(self):
+        """Test new()"""
         pass
+
+
+if __name__ == "__main__":
+    unittest.main()
