@@ -14,6 +14,7 @@ from datetime import datetime
 from models.place import Place
 from models.amenity import Amenity
 
+
 class TestClassPlace(unittest.TestCase):
     """Tests for class Place"""
 
