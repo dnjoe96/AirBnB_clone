@@ -57,12 +57,6 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     file = None
 
-    def __init__(self):
-        """Initialize class to set parameter for non-intereactive
-        operations
-        """
-        cmd.Cmd.__init__(self, stdin=sys.stdin)
-
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file)
         and prints the id. Ex: $ create BaseModel
