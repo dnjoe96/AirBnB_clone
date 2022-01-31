@@ -14,6 +14,7 @@ from models import storage
 from datetime import datetime
 from models.city import City
 
+
 class TestCity(unittest.TestCase):
     """Tests for class city"""
 
