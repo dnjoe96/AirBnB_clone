@@ -54,4 +54,4 @@ class FileStorage:
 
         # for key, value in objs.items():
         # FileStorage.__objects[key] = \
-            # globals()[value['__class__']](**value)
+        # globals()[value['__class__']](**value)
